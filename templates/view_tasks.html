@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Tareas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .logout-button, .back-button {
+            position: absolute;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .logout-button {
+            top: 20px;
+            right: 20px;
+            background-color: #e74c3c;
+        }
+        .logout-button:hover {
+            background-color: #c0392b;
+        }
+        .back-button {
+            top: 20px;
+            left: 20px;
+            background-color: #3498db;
+        }
+        .back-button:hover {
+            background-color: #2980b9;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: white;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .completed {
+            text-decoration: line-through;
+            color: #7f8c8d;
+        }
+        .task-actions {
+            float: right;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <a href="/logout" class="logout-button">Salir</a>
+    <a href="/" class="back-button">Volver</a>
+    
+    <h1>Tareas</h1>
+    
+    <h2>Tareas Pendientes</h2>
+    <ul>
+        {% for tarea in tareas_pendientes %}
+        <li>
+            <span>
+                <strong>{{ tarea['nombre'] }}</strong> - {{ tarea['descripcion'] }} ({{ tarea['fecha'] }})
+            </span>
+            <span class="task-actions">
+                <a href="/complete_task/{{ tarea['id'] }}">Completar</a>
+                <a href="/delete_task/{{ tarea['id'] }}">Eliminar</a>
+            </span>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Tareas Completadas</h2>
+    <ul>
+        {% for tarea in tareas_completadas %}
+        <li class="completed">
+            <span>
+                <strong>{{ tarea['nombre'] }}</strong> - {{ tarea['descripcion'] }} ({{ tarea['fecha'] }})
+            </span>
+            <span class="task-actions">
+                <a href="/delete_task/{{ tarea['id'] }}">Eliminar</a>
+            </span>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
